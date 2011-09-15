@@ -11,6 +11,11 @@ Why?
 
 Visit http://localhost:8080/manager/status for one of your tomcat instances. Not pretty is it? What I was after was something more useful.
 
+Screenshot
+----------
+
+See screenshots/in-action.gif
+
 Installation
 ------------
 Copy xform.xsl and the css folder to your tomcat manager webapp root (e.g webapps/manager) and visit:
