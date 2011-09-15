@@ -1,0 +1,180 @@
+body {
+	font-family: Helvetica, Verdana, sans-serif;
+	padding: 60px 0 0;
+	margin: 0;
+}
+
+h1 {
+	position: absolute;
+	top: 20px;
+	right: 20px;
+	padding: 0;
+	margin: 0;
+	color: #eee;
+	font-size: 100%;
+	font-weight: normal;
+}
+
+.status {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	color: #eee;
+	background: #45484d;
+	background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#45484d), color-stop(100%,#000000));
+	background: -webkit-linear-gradient(top, #45484d 0%,#000000 100%);
+	background: -o-linear-gradient(top, #45484d 0%,#000000 100%);
+	background: -ms-linear-gradient(top, #45484d 0%,#000000 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 );
+	background: linear-gradient(top, #45484d 0%,#000000 100%);
+	box-shadow: #444 0 2px 10px;
+	text-shadow: #000 1px 1px 1px;
+	min-width: 1100px; 
+}
+
+.indicator {
+	display: inline-block;
+	vertical-align: top;
+	border-right: solid 1px #666;
+	width: 120px;
+	height: 60px;
+	text-align: center;
+	color: #6BE21F;
+}
+
+.memory {
+	width: 150px;
+}
+
+.traffic {
+	width: 160px;
+}
+
+div.errors {
+	width: 200px;
+}
+
+.status .warn {
+	color: #E2761F;
+}
+
+.status .error {
+	color: #E21F2F;
+}
+
+.status .help {
+	color: #E21F2F;
+}
+
+.status .traffic,
+.status .max {
+	color: #999;
+}
+
+.indicator h5 {
+	margin: 0;
+	padding: 4px 6px;
+	text-align: center;
+	font-size: 75%;
+	text-transform: uppercase;
+	display: block;
+	color: #999;
+}
+
+.indicator span {
+	padding: 4px 6px;
+}
+
+.indicator .value {
+	font-size: 150%;
+}
+
+.errors .value {
+	color: #999;
+}
+
+.ratio .value {
+	padding-right: 0;
+}
+
+.ratio .from {
+	color: #999;
+}
+
+.indicator abbr {
+	font-size: 70%;
+	margin-left: 6px;
+	color: #999;
+}
+
+table {
+	margin: 20px 5%;
+	width: 90%;
+	table-layout: fixed;
+}
+
+th {
+	text-align: left;
+	text-transform: uppercase;
+	color: #444;
+	font-size: 90%;
+	padding: 4px 6px;
+	border-bottom: solid 1px #eee;
+}
+
+h2 {
+	margin: 30px 0 10px 3%;
+	font-size: 90%;
+	color: #999;
+	font-weight: normal;
+}
+
+.url {
+	width: 80%;
+}
+
+td {
+	padding: 4px 6px;
+}
+
+td strong {
+	margin-right: 6px;
+}
+
+td.url {
+	overflow: hidden;
+}
+
+span.query {
+	display:block;
+	font-size: 90%;
+	margin-left: 10px;
+	color: #999;
+}
+
+.client span {
+	color: #999;
+}
+
+.threads td.time {
+	color: green;
+}
+
+.threads td.warn {
+	color: orange;
+}
+
+.threads td.error {
+	color: red;
+}
+
+.time abbr {
+	margin-left: 6px;
+	color: #999;
+}
+
+span.errors {
+	padding-left: 0;
+}
