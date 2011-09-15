@@ -110,6 +110,7 @@
     	<th class="client">Client</th>
     	<th class="time">Time</th>
     </tr>
+    
   	<xsl:apply-templates select="worker"/>
 
    </table>
