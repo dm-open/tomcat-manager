@@ -28,72 +28,71 @@
     	<link rel="stylesheet" href="/manager/css/layout.css"/>
     </head>
     <body>
+		<section class="status">
+			<h1><xsl:value-of select="connector/@name"/></h1>
+			<xsl:variable name="free" select="number(jvm/memory/@free)"/>
+			<xsl:variable name="total" select="number(jvm/memory/@max)"/>
+			<div>
+				<xsl:attribute name="class">
+					indicator ratio memory
+					<xsl:choose>
+						<xsl:when test="$free &lt; ($total div 5)">warn</xsl:when>
+						<xsl:when test="$free &lt; ($total div 10)">error</xsl:when>
+					</xsl:choose>
+				</xsl:attribute>
+				<h5>Memory Usage</h5>
+				<span class="value"><xsl:value-of select="format-number(number(jvm/memory/@free) div 1000000, '#')"/></span>
+				<span class="from">/ <xsl:value-of select="format-number(number(jvm/memory/@total) div 1000000, '#')"/> <abbr>MB</abbr></span>
+			</div>
+			<xsl:variable name="busy" select="number(connector/threadInfo/@currentThreadsBusy)"/>
+			<xsl:variable name="threads" select="number(connector/threadInfo/@maxThreads)"/>
+			<div>
+				<xsl:attribute name="class">
+					indicator ratio threads
+					<xsl:choose>
+						<xsl:when test="$busy &gt; ($threads div 3)">warn</xsl:when>
+						<xsl:when test="$busy &gt; ($threads div 2)">error</xsl:when>
+						<xsl:when test="$busy &gt; ($threads div 1.5)">help</xsl:when>
+					</xsl:choose>
+				</xsl:attribute>
+				<h5>Busy Threads</h5>
+				<span class="value"><xsl:value-of select="connector/threadInfo/@currentThreadsBusy"/></span>
+				<span class="from">/ <xsl:value-of select="connector/threadInfo/@maxThreads"/></span>
+			</div>
+			<div class="indicator max">
+				<h5>Peak Memory</h5>
+				<span class="value"><xsl:value-of select="format-number(number(jvm/memory/@max) div 1000000, '#')"/> <abbr>MB</abbr></span>
+			</div>
+			<div class="indicator max">
+				<h5>Peak Threads</h5>
+				<span class="value"><xsl:value-of select="connector/threadInfo/@currentThreadCount"/></span>
+			</div>
+			<div class="indicator traffic">
+				<h5>Sent / Received</h5>
+				<span class="value">
+					<xsl:value-of select="format-number(number(connector/requestInfo/@bytesSent) div 1000000, '#')"/> /
+					<xsl:value-of select="format-number(number(connector/requestInfo/@bytesReceived) div 1000000, '#')"/> <abbr>MB</abbr>
+				</span>
+			</div>
+			<div>
+				<xsl:variable name="errors" select="(number(connector/requestInfo/@errorCount) div number(connector/requestInfo/@requestCount)) * 100"/>
+				<xsl:attribute name="class">
+					indicator errors
+					<xsl:choose>
+						<xsl:when test="$errors &gt; 5">error</xsl:when>
+						<xsl:when test="$errors &gt; 1">warn</xsl:when>
+					</xsl:choose>
+				</xsl:attribute>
+				<h5>Requests / Errors</h5>
+				<span class="value">
+					<xsl:value-of select="format-number(number(connector/requestInfo/@requestCount), '#,###,###')"/> /</span>
+				<span class="errors">
+					<xsl:value-of select="format-number($errors, '#0.00')"/>%
+				</span>
+			</div>
+		</section>
 
-			<section class="status">
-				<h1><xsl:value-of select="connector/@name"/></h1>
-				<xsl:variable name="free" select="number(jvm/memory/@free)"/>
-				<xsl:variable name="total" select="number(jvm/memory/@max)"/>
-				<div>
-					<xsl:attribute name="class">
-						indicator ratio memory
-						<xsl:choose>
-							<xsl:when test="$free &lt; ($total div 5)">warn</xsl:when>
-							<xsl:when test="$free &lt; ($total div 10)">error</xsl:when>
-						</xsl:choose>
-					</xsl:attribute>
-					<h5>Memory Usage</h5>
-					<span class="value"><xsl:value-of select="format-number(number(jvm/memory/@free) div 1000000, '#')"/></span>
-					<span class="from">/ <xsl:value-of select="format-number(number(jvm/memory/@total) div 1000000, '#')"/> <abbr>MB</abbr></span>
-				</div>
-				<xsl:variable name="busy" select="number(connector/threadInfo/@currentThreadsBusy)"/>
-				<xsl:variable name="threads" select="number(connector/threadInfo/@maxThreads)"/>
-				<div>
-					<xsl:attribute name="class">
-						indicator ratio threads
-						<xsl:choose>
-							<xsl:when test="$busy &gt; ($threads div 3)">warn</xsl:when>
-							<xsl:when test="$busy &gt; ($threads div 2)">error</xsl:when>
-							<xsl:when test="$busy &gt; ($threads div 1.5)">help</xsl:when>
-						</xsl:choose>
-					</xsl:attribute>
-					<h5>Busy Threads</h5>
-					<span class="value"><xsl:value-of select="connector/threadInfo/@currentThreadsBusy"/></span>
-					<span class="from">/ <xsl:value-of select="connector/threadInfo/@maxThreads"/></span>
-				</div>
-				<div class="indicator max">
-					<h5>Peak Memory</h5>
-					<span class="value"><xsl:value-of select="format-number(number(jvm/memory/@max) div 1000000, '#')"/> <abbr>MB</abbr></span>
-				</div>
-				<div class="indicator max">
-					<h5>Peak Threads</h5>
-					<span class="value"><xsl:value-of select="connector/threadInfo/@currentThreadCount"/></span>
-				</div>
-				<div class="indicator traffic">
-					<h5>Sent / Received</h5>
-					<span class="value">
-						<xsl:value-of select="format-number(number(connector/requestInfo/@bytesSent) div 1000000, '#')"/> /
-						<xsl:value-of select="format-number(number(connector/requestInfo/@bytesReceived) div 1000000, '#')"/> <abbr>MB</abbr>
-					</span>
-				</div>
-				<div>
-					<xsl:variable name="errors" select="(number(connector/requestInfo/@errorCount) div number(connector/requestInfo/@requestCount)) * 100"/>
-					<xsl:attribute name="class">
-						indicator errors
-						<xsl:choose>
-							<xsl:when test="$errors &gt; 5">error</xsl:when>
-							<xsl:when test="$errors &gt; 1">warn</xsl:when>
-						</xsl:choose>
-					</xsl:attribute>
-					<h5>Requests / Errors</h5>
-					<span class="value">
-						<xsl:value-of select="format-number(number(connector/requestInfo/@requestCount), '#,###,###')"/> /</span>
-					<span class="errors">
-						<xsl:value-of select="format-number($errors, '#0.00')"/>%
-					</span>
-				</div>
-			</section>
-
-			<xsl:apply-templates select="connector"/>
+		<xsl:apply-templates select="connector"/>
      </body>
     </html>
   </xsl:template>
@@ -111,7 +110,9 @@
     	<th class="time">Time</th>
     </tr>
     
-  	<xsl:apply-templates select="worker"/>
+  	<xsl:apply-templates select="worker">
+  		<xsl:sort select="@requestProcessingTime"/>
+  	</xsl:apply-templates>
 
    </table>
   </xsl:template>
