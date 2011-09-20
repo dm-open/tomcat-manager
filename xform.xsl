@@ -111,7 +111,7 @@
     </tr>
     
   	<xsl:apply-templates select="worker">
-  		<xsl:sort select="@requestProcessingTime"/>
+  		<xsl:sort select="number(@requestProcessingTime)" order="ascending"/>
   	</xsl:apply-templates>
 
    </table>
